@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/AustinMCrane/go_learning/api"
+	"github.com/AustinMCrane/wedding_api/api"
 )
 
 func main() {
-	api.Init()
+	api.Start()
 }

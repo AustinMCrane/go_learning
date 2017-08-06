@@ -5,22 +5,43 @@ import (
 	"net/http"
 )
 
+// JSONError is a generic error to describe api errors
+type JSONError struct {
+	Status  int    `json:"statusCode"`
+	Message string `json:"message"`
+}
+
+// addJSONHeader adds the content-type header to application/json
+func addJSONHeader(hf http.HandlerFunc) http.HandlerFunc {
+	return func(res http.ResponseWriter, req *http.Request) {
+
+		// Set the `foo` header key.
+		res.Header().Set("Content-Type", "application/json")
+
+		// Call the handler that was provided.
+		hf(res, req)
+	}
+}
+
 // V1 contains the version 1 handlers for our API.
 func V1() http.Handler {
 
-	log.Print("init v1")
 	// Create a new mux for this version.
 	r := http.NewServeMux()
 
 	// Bind the handler function for the user API.
-	r.HandleFunc("/guests", GuestIndex)
-	r.HandleFunc("/guests/rsvp", GuestRSVP)
+	r.HandleFunc("/guests", addJSONHeader(GuestIndex))
+	r.HandleFunc("/guests/rsvp", addJSONHeader(GuestRSVP))
+
+	r.HandleFunc("/locations", addJSONHeader(LocationIndex))
+
+	r.HandleFunc("/posts", addJSONHeader(PostIndex))
 
 	return r
 }
 
-// App loads the entire API set together for use.
-func App() http.Handler {
+// API loads the entire API set together for use.
+func API() http.Handler {
 
 	// Create a new mux which will process the
 	// initial requests.
@@ -34,11 +55,11 @@ func App() http.Handler {
 	// of the resulting path.
 	// r.Handle("/api/v2/", http.StripPrefix("/api/v2", V2()))
 
-	log.Print("added")
 	return r
 }
 
-func Init() {
-	log.Print("listening on http://localhost:9999")
-	log.Fatal(http.ListenAndServe("localhost:9999", App()))
+// Start starts the API on port 9999
+func Start() {
+	log.Print("listening on http://localhost:9999 👰")
+	log.Fatal(http.ListenAndServe("localhost:9999", API()))
 }

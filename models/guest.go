@@ -3,11 +3,7 @@ package models
 import (
 	"fmt"
 	_ "github.com/lib/pq"
-
-	"github.com/AustinMCrane/go_learning/dbutils"
 )
-
-var db, dbError = dbutils.Init("localhost", "5432", "postgres", "password", "wedding_app")
 
 type Guest struct {
 	ID             int    `json:"id"`
@@ -23,7 +19,7 @@ type GuestList struct {
 
 func AllGuests() GuestList {
 	guestList := GuestList{}
-	rows, err := db.Query("select * from guest")
+	rows, err := DB.Query("select * from guest")
 
 	if err != nil {
 		fmt.Println(err)
@@ -46,7 +42,7 @@ func FindGuestByName(name string) (Guest, error) {
 	c += "'"
 	c += name
 	c += "'"
-	err := db.QueryRow(c).Scan(&guest.ID, &guest.FirstName, &guest.LastName, &guest.IsWeddingParty, &guest.IsRSVPed)
+	err := DB.QueryRow(c).Scan(&guest.ID, &guest.FirstName, &guest.LastName, &guest.IsWeddingParty, &guest.IsRSVPed)
 
 	if err != nil {
 		return Guest{}, err
@@ -58,7 +54,7 @@ func FindGuestByName(name string) (Guest, error) {
 func GuestRSVP(id int, yesOrNo bool) (Guest, error) {
 	var guest Guest
 
-	err := db.QueryRow("update guest set rsvp=$1 where id = $2 RETURNING *", yesOrNo, id).Scan(&guest.ID, &guest.FirstName, &guest.LastName, &guest.IsWeddingParty, &guest.IsRSVPed)
+	err := DB.QueryRow("update guest set rsvp=$1 where id = $2 RETURNING *", yesOrNo, id).Scan(&guest.ID, &guest.FirstName, &guest.LastName, &guest.IsWeddingParty, &guest.IsRSVPed)
 
 	if err != nil {
 		return Guest{}, err
