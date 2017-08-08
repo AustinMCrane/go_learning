@@ -58,12 +58,15 @@ func CreatePost(body string, imageString string, imageName string) (Post, error)
 	if err != nil {
 		return Post{}, err
 	}
-	query := fmt.Sprintf(`insert into post (body, image) values('%s','%s') RETURNING id`, body, path)
+
+	query := fmt.Sprintf(`insert into post (body, image) values('%s','%s') RETURNING id`, body, FileServerURL+path)
+
 	var id int64
 	err = DB.QueryRow(query).Scan(&id)
 	if err != nil {
 		return Post{}, err
 	}
+
 	post, err := FindPost(int(id))
 	if err != nil {
 		return Post{}, err

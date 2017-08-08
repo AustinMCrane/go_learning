@@ -11,18 +11,28 @@ import (
 
 var (
 	// RootFilePath default volume path
-	RootFilePath = "appvolumes"
+	RootFilePath  = "appvolumes"
+	FileServerURL = "http://localhost:8080/"
 )
 
 func init() {
+	// check if user wants to use something besides default file path
 	filePath := os.Getenv("ROOT_FILE_PATH")
 	if filePath != "" {
 		RootFilePath = filePath
 	}
+
+	// check if user wants to use something besides default file path
+	fileServerURL := os.Getenv("FILE_SERVER_URL")
+	if fileServerURL != "" {
+		FileServerURL = fileServerURL
+	}
+
 	_, err := os.Stat(RootFilePath)
 	if err == nil {
 		return
 	}
+
 	if os.IsNotExist(err) {
 		err := os.Mkdir(RootFilePath, os.FileMode(0700))
 		if err != nil {

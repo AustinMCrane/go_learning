@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <script
+      src="http://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+    <style>
+      .comming {
+        background: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input id="location" type="text" placeholder="rsvp location"/>
+      <button onclick="getRSVPList()">Submit</button>
+    </div>
+    <div id="results">
+    </div>
+    <script type="text/javascript">
+      function getRSVPList() {
+        var location = $('#location').val();
+        var destination = $('#results');
+        $.ajax({
+          url: location,
+          success: function(response) {
+            console.log(response);
+            for (var i = 0; i < response.list.length; i++) {
+              var item = response.list[i];
+              var c = item.isRSVPed ? 'comming' : 'notcomming';
+
+              destination.append('<li class="' + c + '">'  + item.firstName + " " + item.lastName + '</li>');
+            }
+          },
+          error: function(error) {
+          }
+        })
+      }
+    </script>
+  </body>
+</html>

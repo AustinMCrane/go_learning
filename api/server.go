@@ -3,6 +3,8 @@ package api
 import (
 	"log"
 	"net/http"
+
+	"github.com/rs/cors"
 )
 
 // JSONError is a generic error to describe api errors
@@ -36,8 +38,9 @@ func V1() http.Handler {
 	r.HandleFunc("/locations", addJSONHeader(LocationIndex))
 
 	r.HandleFunc("/posts", addJSONHeader(PostIndex))
+	handler := cors.Default().Handler(r)
 
-	return r
+	return handler
 }
 
 // API loads the entire API set together for use.
@@ -60,6 +63,6 @@ func API() http.Handler {
 
 // Start starts the API on port 9999
 func Start() {
-	log.Print("listening on http://localhost:9999 👰")
-	log.Fatal(http.ListenAndServe("localhost:9999", API()))
+	log.Print("listening on http://localhost:8888 👰")
+	log.Fatal(http.ListenAndServe("localhost:8888", API()))
 }
