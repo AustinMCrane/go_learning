@@ -63,6 +63,6 @@ func API() http.Handler {
 
 // Start starts the API on port 9999
 func Start() {
-	log.Print("listening on http://localhost:8888 👰")
-	log.Fatal(http.ListenAndServe("localhost:8888", API()))
+	log.Print("listening on http://0.0.0.0:8888 👰")
+	log.Fatal(http.ListenAndServe("0.0.0.0:8888", API()))
 }

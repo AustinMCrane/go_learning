@@ -1,4 +1,30 @@
 version: '2'
 services:
+  db:
+    image: postgres
+    env_file:
+      - .env.postgres
+    volumes:
+      - ./sql/:/docker-entrypoint-initdb.d/
+    ports:
+      - 5433:5432
+
   api:
-    build: '.'
+    image: ubuntu
+    volumes:
+      - ./:/app
+      - ./appvolumes/:/appvolumes
+    command: /app/wedding_api
+    ports:
+      - 8080:8888
+    env_file:
+      - .env.api
+    links:
+      - db:db
+
+  image_server:
+    image: kyma/docker-nginx
+    ports:
+      - 8888:80
+    volumes:
+      - ./appvolumes:/var/www/appvolumes
