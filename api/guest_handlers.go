@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/AustinMCrane/wedding_app_api/models"
+	"github.com/austinmcrane/wedding_app_api/models"
 )
 
 // GuestIndex returns all of the Guests from the database in a GuestList

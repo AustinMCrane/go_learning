@@ -10,13 +10,13 @@ services:
       - 5433:5432
 
   api:
-    image: ubuntu
+    build: .
     volumes:
       - ./:/app
       - ./appvolumes/:/appvolumes
-    command: /app/wedding_api
     ports:
       - 8080:8888
+      - 3000:3000
     env_file:
       - .env.api
     links:
