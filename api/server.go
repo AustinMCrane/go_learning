@@ -38,6 +38,7 @@ func V1() http.Handler {
 	r.HandleFunc("/locations", addJSONHeader(LocationIndex))
 
 	r.HandleFunc("/posts", addJSONHeader(PostIndex))
+	r.HandleFunc("/timelines", addJSONHeader(TimelineIndex))
 	handler := cors.Default().Handler(r)
 
 	return handler

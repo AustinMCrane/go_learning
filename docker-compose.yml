@@ -25,6 +25,6 @@ services:
   image_server:
     image: kyma/docker-nginx
     ports:
-      - 8888:80
+      - 80:80
     volumes:
       - ./appvolumes:/var/www/appvolumes

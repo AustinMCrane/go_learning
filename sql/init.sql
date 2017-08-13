@@ -17,3 +17,10 @@ CREATE TABLE post (
   body char varying(255),
   image char varying(400)
 );
+
+CREATE TABLE timeline (
+  id SERIAL,
+  body char varying(500),
+  time char varying(100),
+  image char varying(255)
+);

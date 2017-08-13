@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/AustinMCrane/wedding_api/models"
+	"github.com/AustinMCrane/wedding_app_api/models"
 )
 
 // LocationIndex returns all Locations in the database in a LocationList

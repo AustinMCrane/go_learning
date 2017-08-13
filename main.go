@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/AustinMCrane/wedding_api/api"
+	"github.com/AustinMCrane/wedding_app_api/api"
 )
 
 func main() {

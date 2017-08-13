@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/AustinMCrane/wedding_api/models"
+	"github.com/AustinMCrane/wedding_app_api/models"
 )
 
 // PostForm contains all of the form fields to create a Post

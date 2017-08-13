@@ -3,7 +3,7 @@ package models
 import (
 	"bytes"
 	"encoding/base64"
-	"image/png"
+	"image/jpeg"
 	"io/ioutil"
 	"log"
 	"os"
@@ -56,7 +56,7 @@ func SaveBase64Image(fileName string, s string) (string, error) {
 	}
 
 	r := bytes.NewReader(unbased)
-	im, err := png.Decode(r)
+	im, err := jpeg.Decode(r)
 	if err != nil {
 		return "", err
 	}
@@ -66,6 +66,6 @@ func SaveBase64Image(fileName string, s string) (string, error) {
 		return "", err
 	}
 
-	png.Encode(f, im)
+	jpeg.Encode(f, im, nil)
 	return RootFilePath + "/" + fileName, nil
 }

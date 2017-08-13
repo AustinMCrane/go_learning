@@ -23,7 +23,7 @@ type PostList struct {
 // AllPosts returns all of the posts in the database in a PostList
 func AllPosts() PostList {
 	postList := PostList{}
-	rows, err := DB.Query("select * from post")
+	rows, err := DB.Query("select * from post order by id desc")
 
 	if err != nil {
 		fmt.Println(err)
