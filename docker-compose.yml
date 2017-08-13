@@ -16,7 +16,6 @@ services:
       - ./appvolumes/:/appvolumes
     ports:
       - 8080:8888
-      - 3000:3000
     env_file:
       - .env.api
     links:
