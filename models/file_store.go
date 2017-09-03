@@ -3,6 +3,7 @@ package models
 import (
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	"image/png"
 	"io/ioutil"
 	"log"
@@ -50,6 +51,7 @@ func SaveString(s string) (string, error) {
 }
 
 func SaveBase64Image(fileName string, s string) (string, error) {
+	fmt.Println("TESTING THAT ITS A PNG")
 	unbased, err := base64.StdEncoding.DecodeString(s)
 	if err != nil {
 		return "", err
