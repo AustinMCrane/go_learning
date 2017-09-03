@@ -64,6 +64,8 @@ func SaveBase64Image(fileName string, s string) (string, error) {
 	}
 
 	f, err := os.OpenFile(RootFilePath+"/"+fileName, os.O_WRONLY|os.O_CREATE, 0777)
+	fmt.Println(f)
+	fmt.Println(im)
 	if err != nil {
 		return "", err
 	}
